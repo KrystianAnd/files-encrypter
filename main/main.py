@@ -27,6 +27,7 @@ def rename_selected_files(folder_path, selected_files, output_file=None):
         output_file = create_codes_folder_on_desktop()
 
     mapping = []
+    used_names = set(os.listdir(folder_path))
 
     for filename in selected_files:
         old_path = os.path.join(folder_path, filename)
@@ -38,11 +39,12 @@ def rename_selected_files(folder_path, selected_files, output_file=None):
         new_name = generate_random_string(12) + extension
         new_path = os.path.join(folder_path, new_name)
 
-        while os.path.exists(new_path):
+        while os.path.exists(new_path) or new_name in used_names:
             new_name = generate_random_string(12) + extension
             new_path = os.path.join(folder_path, new_name)
 
         os.rename(old_path, new_path)
+        used_names.add(new_name)
         mapping.append((new_name, filename))
         print(f" {filename} -> {new_name}")
 
