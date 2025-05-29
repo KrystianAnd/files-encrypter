@@ -1,6 +1,7 @@
 import os
 import string
 import random
+from datetime import datetime
 
 
 def generate_random_string(length=12):
@@ -46,6 +47,8 @@ def rename_selected_files(folder_path, selected_files, output_file=None):
         print(f" {filename} -> {new_name}")
 
     with open(output_file, mode="a", encoding="utf-8") as f:
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        f.write(f"\n[Date: {now} | Folder: {folder_path}]\n")
         for new_name, old_name in mapping:
             f.write(f"{new_name} -> {old_name}\n")
     print(f"\n File map saved to: {output_file}")
