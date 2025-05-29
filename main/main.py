@@ -8,7 +8,23 @@ def generate_random_string(length=12):
     return "".join(random.choice(chars) for _ in range(length))
 
 
-def rename_selected_files(folder_path, selected_files, output_file="file_map.txt"):
+def create_codes_folder_on_desktop():
+    desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+    codes_folder = os.path.join(desktop_path, "codes")
+    os.makedirs(codes_folder, exist_ok=True)
+    file_map_path = os.path.join(codes_folder, "file_map.txt")
+
+    if not os.path.isfile(file_map_path):
+        with open(file_map_path, "w", encoding="utf-8") as f:
+            f.write("")
+
+    return file_map_path
+
+
+def rename_selected_files(folder_path, selected_files, output_file=None):
+    if output_file is None:
+        output_file = create_codes_folder_on_desktop()
+
     mapping = []
 
     for filename in selected_files:
@@ -29,7 +45,7 @@ def rename_selected_files(folder_path, selected_files, output_file="file_map.txt
         mapping.append((new_name, filename))
         print(f" {filename} -> {new_name}")
 
-    with open(os.path.join(folder_path, output_file), mode="w", encoding="utf-8") as f:
+    with open(output_file, mode="a", encoding="utf-8") as f:
         for new_name, old_name in mapping:
             f.write(f"{new_name} -> {old_name}\n")
     print(f"\n File map saved to: {output_file}")
