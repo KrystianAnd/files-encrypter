@@ -1,6 +1,8 @@
+import os
 from pathlib import Path
 
 from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -23,3 +25,16 @@ class RenameFilesView(APIView):
             return Response({"renamed": result}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+def listfiles(request):
+    path = request.data.get("path")
+    if not path:
+        return Response({"error": "No path provided"}, status=400)
+
+    try:
+        files = os.listdir(path)
+        return Response({"files": files})
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)

@@ -37,6 +37,6 @@ def rename_files(folder_path: Path, selected_files: list[str]) -> list[dict]:
     with log_path.open("a", encoding="utf-8") as f:
         f.write(f"\n[Date: {now} | Folder: {folder_path}]\n")
         for m in mapping:
-            f.write(f"{m['new']} -> {m['old']}\n")
+            f.write(f"{m['new']} <- {m['old']}\n")
 
     return mapping
