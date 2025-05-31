@@ -17,24 +17,40 @@ export default function PreviewModal({
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded shadow-md max-w-md w-full">
-        <h2 className="text-xl font-semibold mb-4">Are you sure you want to rename these files?</h2>
-        <ul className="max-h-40 overflow-y-auto mb-4 text-sm border p-2 rounded">
-          {files.map((file, idx) => (
-            <li key={idx} className="text-gray-700">{file}</li>
-          ))}
-        </ul>
-        <div className="flex justify-end space-x-4">
+    <div className=" flex items-center justify-center bg-violet-950/30 backdrop-blur-sm">
+      <div className="m-4 w-full max-w-lg rounded-2xl border border-violet-100 bg-gradient-to-br from-white to-violet-50 p-8 shadow-2xl">
+        <div className="mb-6 flex items-center gap-3">
+          <h2 className="text-2xl font-semibold text-violet-900">
+            Confirm Changes
+          </h2>
+        </div>
+
+        <div className="mb-6 rounded-xl border border-violet-100 bg-white/90 p-6 backdrop-blur-sm">
+          <p className="mb-4 text-violet-800">
+            Are you sure you want to rename these files?
+          </p>
+          <ul className="max-h-[200px] space-y-2 overflow-y-auto">
+            {files.map((file, idx) => (
+              <li
+                key={idx}
+                className="flex items-center gap-3 rounded-lg p-2 text-violet-700 hover:bg-violet-50"
+              >
+                <span>{file}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+            className="rounded-lg border border-violet-200 bg-white px-6 py-2.5 text-violet-700 transition-all hover:bg-violet-50 focus:ring-4 focus:ring-violet-100"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+            className="rounded-lg bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-2.5 text-white transition-all hover:from-violet-700 hover:to-purple-700 focus:ring-4 focus:ring-violet-200"
           >
             Confirm
           </button>

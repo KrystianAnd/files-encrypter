@@ -35,9 +35,26 @@ export default function Console({ folderPath }: ConsoleProps) {
   }, [folderPath]);
 
   return (
-    <div className="w-full max-w-3xl bg-black text-green-400 p-4 rounded-md font-mono text-sm min-h-[100px] space-y-2">
-      <p>Selected path: <span className="text-white">{folderPath || "No path selected"}</span></p>
-      {error && <p className="text-red-400"> {error}</p>}
+    <div className="w-full max-w-3xl bg-gray-900 shadow-lg rounded-2xl p-8 font-mono text-sm">
+      <div className="flex items-center gap-3 mb-6">
+        <h2 className="text-2xl font-medium text-gray-100">Console Output</h2>
+      </div>
+
+      <div className="space-y-4">
+        <div className="flex items-center gap-3 text-gray-300">
+          <span>Selected path:</span>
+          <span className="text-gray-100 font-medium">
+            {folderPath || "No path selected"}
+          </span>
+        </div>
+
+        {error && (
+          <div className="flex items-center gap-3 text-red-300 bg-red-900/30 p-4 rounded-xl">
+            <span>⚠</span>
+            <span>{error}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
