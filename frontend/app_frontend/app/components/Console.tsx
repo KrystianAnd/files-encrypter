@@ -35,13 +35,9 @@ export default function Console({ folderPath }: ConsoleProps) {
   }, [folderPath]);
 
   return (
-    <div className="w-full max-w-3xl bg-gray-900 shadow-lg rounded-2xl p-8 font-mono text-sm">
-      <div className="flex items-center gap-3 mb-6">
-        <h2 className="text-2xl font-medium text-gray-100">Console Output</h2>
-      </div>
-
+    <div className="w-full flex justify-center text-center">
       <div className="space-y-4">
-        <div className="flex items-center gap-3 text-gray-300">
+        <div className="flex items-center ">
           <span>Selected path:</span>
           <span className="text-gray-100 font-medium">
             {folderPath || "No path selected"}
@@ -49,7 +45,7 @@ export default function Console({ folderPath }: ConsoleProps) {
         </div>
 
         {error && (
-          <div className="flex items-center gap-3 text-red-300 bg-red-900/30 p-4 rounded-xl">
+          <div className="flex items-center ">
             <span>⚠</span>
             <span>{error}</span>
           </div>

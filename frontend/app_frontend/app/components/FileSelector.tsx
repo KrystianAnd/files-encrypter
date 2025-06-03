@@ -75,47 +75,53 @@ export default function FileSelector() {
   };
 
   return (
-    <div className="w-full max-w-3xl bg-gradient-to-br from-violet-50 to-fuchsia-50 shadow-xl rounded-2xl p-8 border border-violet-100">
-      <div className="flex items-center gap-3 mb-6">
-        <h2 className="text-2xl font-semibold text-violet-900">File Selection</h2>
-      </div>
+    <div className="w-full flex justify-center ">
+      <div className="w-full max-w-[1200px] text-center" >
+        {error && (
+          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600">
+            {error}
+          </div>
+        )}
 
-      {error && (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600">
-          {error}
-        </div>
-      )}
-
-      <div className="bg-white/70 backdrop-blur-sm border border-violet-100 rounded-xl p-4 mb-6">
-        <ul className="max-h-[300px] overflow-y-auto space-y-2">
+        <div
+          className="mb-4 grid grid-cols-4 "
+          style={{ columnGap: "4px", rowGap: "2px" }}
+        >
           {files.map((file, idx) => (
-            <li key={idx} className="flex items-center gap-3 p-2 hover:bg-violet-50 rounded-lg transition-all">
+            <div
+              key={idx}
+              className=" h-[50px] flex items-center  text-center text-large bg-white border border-gray-300 rounded-full pt-4 py-3 shadow-sm w-full max-w-[200px]"
+            >
               <input
                 type="checkbox"
                 checked={selected.includes(file)}
                 onChange={() => toggleSelection(file)}
-                className="w-4 h-4 text-violet-500 rounded focus:ring-violet-400"
+                className="mr-3 w-4 h-4 accent-gray-600"
               />
-              <span className="text-violet-900">{file}</span>
-            </li>
+              <span className="text-gray-800 text-sm truncate">{file}</span>
+            </div>
           ))}
-        </ul>
+        </div>
+  
+        <button
+          onClick={handleModalOpen}
+          disabled={selected.length === 0}
+          className="w-[25%]  bg-[#FF7A4C] h-[50px] text-white py-3 rounded-full text-center font-semibold transition-all duration-200 hover:bg-[#ff6933] disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Confirm Changes
+        </button>
+        
+
+  
+        <PreviewModal
+          visible={showModal}
+          files={selected}
+          onConfirm={handleModalConfirm}
+          onCancel={handleModalCancel}
+        />
       </div>
-
-      <button
-        onClick={handleModalOpen}
-        disabled={selected.length === 0}
-        className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white py-3 px-6 rounded-lg font-medium hover:from-violet-700 hover:to-fuchsia-700 focus:ring-4 focus:ring-violet-200 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-      >
-        Rename {selected.length} {selected.length === 1 ? 'file' : 'files'}
-      </button>
-
-      <PreviewModal
-        visible={showModal}
-        files={selected}
-        onConfirm={handleModalConfirm}
-        onCancel={handleModalCancel}
-      />
     </div>
   );
+  
+  
 }
