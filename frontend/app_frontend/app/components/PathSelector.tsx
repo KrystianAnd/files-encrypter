@@ -11,7 +11,7 @@ export default function PathSelector({ onPathSelect }: { onPathSelect: (path: st
   };
 
   return (
-    <div className="w-full flex justify-center items-center gap-4  ">
+    <div className="w-full flex justify-center items-center gap-4  mt-[20px]">
       <input
         type="text"
         placeholder="Enter folder path here"
@@ -23,7 +23,7 @@ export default function PathSelector({ onPathSelect }: { onPathSelect: (path: st
 
       <button
         onClick={handleManualSubmit}
-        className="h-[50px] w-[100px] bg-orange-500 hover:bg-orange-600 text-white font-semibold text-xl py-4 px-8 rounded-full shadow transition-all active:scale-95"
+        className="h-[50px] w-[100px] bg-[#FF7A4C] text-white font-semibold text-xl py-4 px-8 rounded-full shadow transition-all active:scale-95"
       >
         Confirm
       </button>

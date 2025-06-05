@@ -85,7 +85,6 @@ export default function FileSelector() {
 
         <div
           className="mb-4 grid grid-cols-4 "
-          style={{ columnGap: "4px", rowGap: "2px" }}
         >
           {files.map((file, idx) => (
             <div
@@ -103,14 +102,16 @@ export default function FileSelector() {
           ))}
         </div>
   
-        <button
-          onClick={handleModalOpen}
-          disabled={selected.length === 0}
-          className="w-[25%]  bg-[#FF7A4C] h-[50px] text-white py-3 rounded-full text-center font-semibold transition-all duration-200 hover:bg-[#ff6933] disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Confirm Changes
-        </button>
-        
+        {files.length > 0 && (
+          <button
+            onClick={handleModalOpen}
+            disabled={selected.length === 0}
+            className="w-[25%] bg-[#FF7A4C] h-[50px] mt-[35px] text-white py-3 rounded-full text-center font-semibold transition-all duration-200 hover:bg-[#ff6933] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Confirm Changes
+          </button>
+        )}
+
 
   
         <PreviewModal

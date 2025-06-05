@@ -33,16 +33,16 @@ export default function PreviewModal({
           </ul>
         </div>
   
-        <div className="mt-6 flex flex-row justify-center space-x-4">
+        <div className="mt-6 flex flex-row justify-center gap-[10px]">
           <button 
             onClick={onCancel} 
-            className="px-6 py-2 h-[50px] rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition"
+            className="px-6 py-2 h-[50px] rounded-xl  text-white transition"
           >
             Cancel
           </button>
           <button 
             onClick={onConfirm} 
-            className="px-6 py-2 h-[50px] rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition"
+            className="px-6 py-2 h-[50px]  bg-[#FF7A4C] rounded-xl  text-white  transition"
           >
             Confirm
           </button>
