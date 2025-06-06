@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from rest_framework import status
@@ -28,13 +27,18 @@ class RenameFilesView(APIView):
 
 
 @api_view(["POST"])
-def listfiles(request):
-    path = request.data.get("path")
-    if not path:
-        return Response({"error": "No path provided"}, status=400)
+def listfiles(request: Request) -> Response:
+    path_str = request.data.get("path")
+    if not path_str:
+        return Response({"error": "No path provided"}, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        files = os.listdir(path)
-        return Response({"files": files})
-    except Exception as e:
-        return Response({"error": str(e)}, status=500)
+        path = Path(path_str).expanduser()
+        if not path.is_dir():
+            return Response({"error": "Invalid directory path"}, status=status.HTTP_400_BAD_REQUEST)
+
+        files = [entry.name for entry in path.iterdir() if entry.is_file()]
+        return Response({"files": files}, status=status.HTTP_200_OK)
+
+    except OSError as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
