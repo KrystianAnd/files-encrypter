@@ -10,30 +10,30 @@ export default function FileSelector() {
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
+  const fetchFiles = async () => {
     if (!folderPath) return;
 
-    const fetchFiles = async () => {
-      try {
-        const res = await fetch("http://localhost:8000/api/listfiles/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ path: folderPath }),
-        });
-        const data = await res.json();
+    try {
+      const res = await fetch("http://localhost:8000/api/listfiles/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path: folderPath }),
+      });
+      const data = await res.json();
 
-        if (!res.ok) {
-          setError(data.error || "Error while fetching files");
-          return;
-        }
-
-        setFiles(data.files);
-        setError("");
-      } catch (e) {
-        setError("Failed to connect to the API");
+      if (!res.ok) {
+        setError(data.error || "Error while fetching files");
+        return;
       }
-    };
 
+      setFiles(data.files);
+      setError("");
+    } catch (e) {
+      setError("Failed to connect to the API");
+    }
+  };
+
+  useEffect(() => {
     fetchFiles();
   }, [folderPath]);
 
@@ -56,6 +56,9 @@ export default function FileSelector() {
       const data = await res.json();
       setResults(data);
       setSelected([]);
+
+      // ⬇️ dodajemy odświeżenie listy plików po rename:
+      await fetchFiles();
     } catch (e) {
       setResults({ error: "Failed to send data to the API" });
     }
@@ -76,20 +79,18 @@ export default function FileSelector() {
 
   return (
     <div className="w-full flex justify-center ">
-      <div className="w-full max-w-[1200px] text-center" >
+      <div className="w-full max-w-[1200px] text-center">
         {error && (
           <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600">
             {error}
           </div>
         )}
 
-        <div
-          className="mb-4 grid grid-cols-4 "
-        >
+        <div className="mb-4 grid grid-cols-4">
           {files.map((file, idx) => (
             <div
               key={idx}
-              className=" h-[50px] flex items-center  text-center text-large bg-white border border-gray-300 rounded-full pt-4 py-3 shadow-sm w-full max-w-[200px]"
+              className="h-[50px] flex items-center text-center text-large bg-white border border-gray-300 rounded-full pt-4 py-3 shadow-sm w-full max-w-[200px]"
             >
               <input
                 type="checkbox"
@@ -101,7 +102,7 @@ export default function FileSelector() {
             </div>
           ))}
         </div>
-  
+
         {files.length > 0 && (
           <button
             onClick={handleModalOpen}
@@ -112,8 +113,6 @@ export default function FileSelector() {
           </button>
         )}
 
-
-  
         <PreviewModal
           visible={showModal}
           files={selected}
@@ -123,6 +122,4 @@ export default function FileSelector() {
       </div>
     </div>
   );
-  
-  
 }
