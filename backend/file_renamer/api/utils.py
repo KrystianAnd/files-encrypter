@@ -32,7 +32,7 @@ def rename_files(folder_path: Path, selected_files: list[str]) -> list[dict]:
 
     now = datetime.now(UTC).astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
     log_path = Path.home() / "Desktop" / "codes" / "file_map.txt"
-    log_path.parent.mkdir(exist_ok=True)
+    log_path.parent.mkdir(parents=True, exist_ok=True)
 
     with log_path.open("a", encoding="utf-8") as f:
         f.write(f"\n[Date: {now} | Folder: {folder_path}]\n")
