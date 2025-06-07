@@ -28,6 +28,8 @@
 
 ### Frontend
 - **Next.js** 15.3.3
+- **React** 19
+- **TailwindCSS** 4
 
 ### CLI Version
 - Available in the `main` directory as a command-line utility.
