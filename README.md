@@ -43,7 +43,7 @@
 
 1. **Clone the repository:**
    ```bash
-   git clone https://your-repo-url/files-encrypter.git
+   git clone https://KrystianAnd/files-encrypter.git
    cd files-encrypter
    ```
 2. **Install requirements for backend:**
